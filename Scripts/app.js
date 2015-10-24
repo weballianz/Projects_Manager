@@ -1,13 +1,17 @@
 var app = angular.module('ProjectManager', ['ngRoute']);
 
 app.config(function ($routeProvider) {
-    $routeProvider.when('#p:ProjectID', {
-        templateUrl: '/tasksList.html',
-        controller: 'managerController'
+    $routeProvider.when('#p:id', {
+        templateUrl: 'tasksList.html',
+        controller: 'viewController'
     })
 });
 
-app.controller('managerController', ['$scope', '$log', '$routeParams', function ($scope, $log, $routeParams) {
+app.controller('viewController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+}]);
+
+app.controller('managerController', ['$scope', '$log', function ($scope, $log) {
+    
 
     $scope.tempName = '';
     $scope.tempID = '';
@@ -18,7 +22,7 @@ app.controller('managerController', ['$scope', '$log', '$routeParams', function 
     $scope.Projects_List = [];
 
     function Task() {
-        var id = tID_init++;
+       var id = tID_init++;
         var name = '';
         var isDone = false;
 
@@ -46,7 +50,7 @@ app.controller('managerController', ['$scope', '$log', '$routeParams', function 
     function Project() {
         var id = pID_init++;
         var name = '';
-        var tasksList = [];
+        var tasksList = ['task1', 'task2'];
 
         this.SetName = function (new_name) {
             name = new_name;
@@ -76,13 +80,12 @@ app.controller('managerController', ['$scope', '$log', '$routeParams', function 
 
 
     }
+    
 
     $scope.addProject = function () {
         $scope.project = new Project();
         this.project.SetName(this.tempName);
         this.Projects_List.push(this.project);
-
-        console.log(this.Projects_List);
     };
 
     var RemoveItemByName = function (arr, val) {

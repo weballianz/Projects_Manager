@@ -14,8 +14,10 @@
                 <h1>Projects Manager</h1>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 seperator">
                         <h3>Projects: </h3>
+                        
+                        <hr>
 
                         <div class="actionBtns">
                             <input type="text" placeholder="Projects name" ng-model="tempName" />
@@ -26,20 +28,27 @@
                         <ul id="projectsList">
                             <li ng-repeat="p in Projects_List track by $index">
                                 
-                                <a href="#p{{p.GetID()}}">{{p.GetName()}}</a>
+                                <a href="#{{$index+1}}">{{p.GetName()}}</a>
+
                             </li>
                         </ul>
                         
+
                     </div>
                     <div class="col-md-6">
                         <h3>Tasks List: </h3>
+                        
+                        <hr>
+
+                        
                         <div class="actionBtns">
-                            <input type="text" placeholder="What would you like to do?" ng-model="tempTaskName" />
+                            <input type="text" placeholder="What would you like to do?" ng-model="tempTaskName" style="width: 200px"/>
                             <input id="pName" type="submit" value="Add" class="btn btn-default" ng-click="addTask()" />
                             <input id="pName" type="submit" value="Remove" class="btn btn-default" ng-click="removeTask(tempTaskName)" />
                         </div>
                             
                         <div ng-view></div>
+                        
 
                     </div>
                 </div>
