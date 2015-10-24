@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Projects Manager</title>
+        <meta lang="en">
         <link rel="stylesheet" type="text/css" href="Content/Style.css"/>
         <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.min.css" />
@@ -20,15 +21,15 @@
                         <hr>
 
                         <div class="actionBtns">
-                            <input type="text" placeholder="Projects name" ng-model="tempName" />
+                            <input type="text" placeholder="Projects name" ng-model="tmpProjectName" />
                             <input id="pName" type="submit" value="Add" class="btn btn-default" ng-click="addProject()" />
-                            <input id="pName" type="submit" value="Remove" class="btn btn-default" ng-click="removeProjectByName(tempName)" />
+                            <input id="pName" type="submit" value="Remove" class="btn btn-default" ng-click="deleteProject(tmpProjectName)" />
                         </div>
 
                         <ul id="projectsList">
                             <li ng-repeat="p in Projects_List track by $index">
                                 
-                                <a href="#{{$index+1}}">{{p.GetName()}}</a>
+                                <a href="#{{$index+1}}">{{p.getName()}}</a>
 
                             </li>
                         </ul>
@@ -39,16 +40,8 @@
                         <h3>Tasks List: </h3>
                         
                         <hr>
-
-                        
-                        <div class="actionBtns">
-                            <input type="text" placeholder="What would you like to do?" ng-model="tempTaskName" style="width: 200px"/>
-                            <input id="pName" type="submit" value="Add" class="btn btn-default" ng-click="addTask()" />
-                            <input id="pName" type="submit" value="Remove" class="btn btn-default" ng-click="removeTask(tempTaskName)" />
-                        </div>
                             
                         <div ng-view></div>
-                        
 
                     </div>
                 </div>
@@ -59,19 +52,6 @@
         <script src="Scripts/jquery-2.1.4.min.js"></script>
         <script src="Scripts/angular.min.js"></script>
         <script src="Scripts/angular-route.min.js"></script>
-        <script src="Scripts/app.js"></script>
+        <script src="Scripts/app_json.js"></script>
     </body>
 </html>
-
-<!--
-                $scope.addTask = function () {
-                    $scope.task = new Task();
-                    this.task.SetName(this.tempTaskName);
-                    this.TasksList.push(this.task);
-                };
-
-                $scope.removeTask = function () {
-                    RemoveItemByName(this.TasksList, this.tempTaskName);
-                };
-
--->
