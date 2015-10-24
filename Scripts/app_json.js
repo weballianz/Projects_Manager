@@ -1,8 +1,18 @@
 var app = angular.module('ProjectManager', ['ngRoute']);
 
-app.controller('managerController', ['$scope', '$log', function ($scope, $log) {
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.
+        when('#:id', {
+            templateUrl: 'taskList.html', 
+            controller: 'managerController'
+    }).otherwise({
+        redirectTo: '/'
+    });
+}]);
+
+app.controller('managerController', ['$scope', '$log', '$routeParams', function ($scope, $log, $routeParams) {
     
-    $scope.tmpProjectName = '';
+    $scope.tmpProjectName = $routeParams.id;
     $scope.Projects_List = [];
     
     function Project() {
