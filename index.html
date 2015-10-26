@@ -6,52 +6,48 @@
         <link rel="stylesheet" type="text/css" href="Content/Style.css"/>
         <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.min.css" />
+        <script src="Scripts/angular.min.js"></script>
+        <script src="Scripts/angular-route.min.js"></script>
+        <script src="Scripts/app_json.js"></script>
 
     </head>
 
-    <body ng-app="ProjectManager">
+    <body ng-app="ProjectManager" ng-controller="managerController">>
         <div class="jumbotron">
-            <div class="container" ng-controller="managerController as ctrl">
+            <div class="container">
                 <h1>Projects Manager</h1>
 
                 <div class="row">
-                    <div class="col-md-6 seperator">
+                    <div class="col-md-6">
                         <h3>Projects: </h3>
                         
                         <hr>
 
                         <div class="actionBtns">
                             <input type="text" placeholder="Projects name" ng-model="tmpProjectName" />
-                            <input id="pName" type="submit" value="Add" class="btn btn-default" ng-click="addProject()" />
-                            <input id="pName" type="submit" value="Remove" class="btn btn-default" ng-click="deleteProject(tmpProjectName)" />
+                            <input type="submit" value="Add" class="btn btn-default" ng-click="addProject()" />
+                            <input type="submit" value="Remove" class="btn btn-default" ng-click="deleteProject(tmpProjectName)" />
                         </div>
 
                         <ul id="projectsList">
                             <li ng-repeat="p in Projects_List track by $index">
                                 
-                                <a href="#{{p.getName()}}">{{p.getName()}}</a>
+                                <a href="#{{$index}}">{{p.getName()}}</a>
 
                             </li>
                         </ul>
-                        
-
                     </div>
                     <div class="col-md-6">
                         <h3>Tasks List: </h3>
                         
                         <hr>
-                            
+        
                         <div ng-view></div>
-
                     </div>
                 </div>
-                
             </div>
-        </div>
-
-        <script src="Scripts/jquery-2.1.4.min.js"></script>
-        <script src="Scripts/angular.min.js"></script>
-        <script src="Scripts/angular-route.min.js"></script>
-        <script src="Scripts/app_json.js"></script>
+         </div>
+         
+        
     </body>
 </html>

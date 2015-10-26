@@ -1,0 +1,13 @@
+<div class="actionBtns">
+    <input type="text" placeholder="Tasks Name" ng-model="tmpTaskName" />
+    <input type="submit" value="Add" class="btn btn-default" ng-click="addTask()" />
+    <input type="submit" value="Remove" class="btn btn-default" ng-click="deleteProject(tmpProjectName)" />
+</div>
+
+<ul>
+        <li ng-repeat="t in tmpTasks_List track by $index">
+            {{ t[0].getName() }}
+        </li>
+
+</ul>
+
