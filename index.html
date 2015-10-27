@@ -6,13 +6,14 @@
         <link rel="stylesheet" type="text/css" href="Content/Style.css"/>
         <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.min.css" />
-        <script src="Scripts/angular.min.js"></script>
-        <script src="Scripts/angular-route.min.js"></script>
-        <script src="Scripts/app_json.js"></script>
+        <script src="Scripts/Extensions/angular.min.js"></script>
+        <script src="Scripts/Extensions/angular-route.min.js"></script>
+        <script src="Scripts/app.js"></script>
+
 
     </head>
 
-    <body ng-app="ProjectManager" ng-controller="managerController">>
+    <body ng-app="ProjectManager" ng-controller="ProjectManagerController">>
         <div class="jumbotron">
             <div class="container">
                 <h1>Projects Manager</h1>
@@ -24,15 +25,14 @@
                         <hr>
 
                         <div class="actionBtns">
-                            <input type="text" placeholder="Projects name" ng-model="tmpProjectName" />
-                            <input type="submit" value="Add" class="btn btn-default" ng-click="addProject()" />
-                            <input type="submit" value="Remove" class="btn btn-default" ng-click="deleteProject(tmpProjectName)" />
+                            <input type="text" placeholder="Projects name" ng-model="newProject.name" />
+                            <input type="submit" value="Add" class="btn btn-default" ng-click="SaveProject()" />
                         </div>
 
                         <ul id="projectsList">
-                            <li ng-repeat="p in Projects_List track by $index">
+                            <li ng-repeat="p in projects track by $index" ng-if="$index != 0">
                                 
-                                <a href="#{{$index}}">{{p.getName()}}</a>
+                                <a href="#{{$index}}">{{ p.name }}</a>
 
                             </li>
                         </ul>
