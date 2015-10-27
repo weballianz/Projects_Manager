@@ -169,22 +169,4 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, Proje
             $scope.newTask = {};
         }
     }
-    
-    $scope.UpdateList = function (id) {
-        
-        
-    }
-    
-    function log(){
-        console.log("-------------------------------");
-        console.log("projects obj ");
-        console.log($scope.projects);
-        console.log("tasks obj ");
-        console.log($scope.tasks);
-        console.log("projects array of tasks ");
-        console.log($scope.projects.toString());
-        console.log("-------------------------------");
-    }
-    
-    log();
 });
