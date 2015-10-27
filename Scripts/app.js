@@ -1,4 +1,4 @@
-var app = angular.module('ProjectManager', ['ngRoute']);
+var app = angular.module('ProjectManager', ['ngRoute', 'ngCookies']);
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/:id', {
@@ -131,7 +131,7 @@ app.service('TaskService', function () {
     }
 });
 
-app.controller('ProjectManagerController', function ($scope, $routeParams, ProjectService, TaskService) {
+app.controller('ProjectManagerController', function ($scope, $routeParams, $cookies, $cookieStore, ProjectService, TaskService) {
 
     $scope.id = $routeParams.id;
     
@@ -145,10 +145,14 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, Proje
     }
     
     $scope.DeleteProject = function (id) {
+        console.log($scope.projects);
+        
         ProjectService.deleteProject(id);
         if ($scope.newProject.id == id) {
             $scope.newProject = {};
         }
+        
+        console.log($scope.projects)
     }
     
     $scope.SaveTask = function (id) {
@@ -169,4 +173,7 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, Proje
             $scope.newTask = {};
         }
     }
+    
+    $cookieStore.put('ProjectsList', this.projects);
+    
 });

@@ -7,6 +7,14 @@
     background-color:  antiquewhite;
 }
 
-#projectID {
-    width: 50px;
+.ID {
+    width: 80px;
+}
+
+.deleteItem {
+    width: 20px;
+}
+
+#pDelete {
+    text-align: center;
 }
