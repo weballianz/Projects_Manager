@@ -1,10 +1,12 @@
 <div class="actionBtns">
     <input type="text" placeholder="Tasks Name" ng-model="newTask.name" />
-    <input type="submit" value="Add" class="btn btn-default" ng-click="SaveTask(); AddTasksTotProject()" />
+    <input type="submit" value="Add" class="btn btn-default" ng-click="SaveTask(id)" />
 </div>
-
 <ul>
-    <li ng-repeat="t in tasks track by $index" ng-if="$index != 0"> 
-        {{ t.name }} 
-    </li>
+    <div ng-repeat="p in projects track by $index" ng-if="p.id == id">
+        <li ng-repeat="t in p.tasks track by $index">
+            {{t.name}}
+        </li>
+    </div>
+    
 </ul>

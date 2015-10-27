@@ -1,32 +1,32 @@
 var app = angular.module('ProjectManager', ['ngRoute']);
 
-app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/:id', {
-            templateUrl: 'tasks.html',
-            controller: 'ProjectManagerController'
-        });
-    }
-]);
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/:id', {
+        templateUrl: 'tasks.html',
+        controller: 'ProjectManagerController'
+    });
+} ]);
 
 app.service('ProjectService', function () {
     var uid = 1;
     var Projects = [{
-        id : 0,
-        'name': null,
-        'tasks' : [{}],
-    }];
+            id : 0,
+            'name' : 'null project',
+            'tasks' : new Array()
+        }]
     
     this.addProject = function (project) {
-      if (project.id == null) {
-          project.id = uid++;
-          Projects.push(project);
-      } else {
-          for (i in Projects) {
-              if (Projects[i].id == project.id) {
-                  Projects[i] = project;
-              }
-          }
-      }
+        if (project.id == null) {
+            project.id = uid++;
+            project.tasks = new Array();
+            Projects.push(project);
+        } else {
+            for (i in Projects) {
+                if (Projects[i].id == project.id) {
+                    Projects[i] = project;
+                }
+            }
+        }
     }
     
     this.getProject = function (id) {
@@ -56,69 +56,76 @@ app.service('ProjectService', function () {
             }
         }
     }
-    
-    this.setTasksList = function (id, taskslist) {
+    function setTaskList(id, tasklist){
         for (i in Projects) {
             if (Projects[i].id == id) {
                 Projects[i].tasks = taskslist;
             }
         }
     }
+    
+    this.insertTask = function (id, task) {
+       for (i in Projects) {
+            if (Projects[i].id == id) {
+                Projects[i].tasks.push(task);
+            }
+        } 
+    }
 });
 
 app.service('TaskService', function () {
     var uid = 1;
-    var tasks = [{
-        id : 0,
-        'name': null,
-        'isDone' : 'false'
-    }];
+    var Tasks = [{
+            id : 1,
+            'name' : 'null task',
+            'isDone' : 'false'
+        }]
     
     this.addTask = function (task) {
       if (task.id == null) {
           task.id = uid++;
-          tasks.push(task);
+          Tasks.push(task);
       } else {
-          for (i in tasks) {
-              if (tasks[i].id == task.id) {
-                  tasks[i] = task;
+          for (i in Tasks) {
+              if (Tasks[i].id == task.id) {
+                  Tasks[i] = task;
               }
           }
       }
     }
     
     this.getTask = function (id) {
-        for (i in tasks) {
-            if (tasks[i].id == id) {
-                return tasks[i];
+        for (i in Tasks) {
+            if (Tasks[i].id == id) {
+                return Tasks[i];
             }
         }
     }
     
     this.deleteTask = function (id) {
-        for (i in tasks) {
-            if (tasks[i].id == id) {
-                tasks.splice(i, 1);
+        for (i in Tasks) {
+            if (Tasks[i].id == id) {
+                Tasks.splice(i, 1);
             }
         }
     }
     
     this.getTasksList = function () {
-        return tasks;
+        return Tasks;
     }
     
     this.checkStatus = function (id) {
-        for (i in tasks) {
-            if (tasks[i].id == id) {
+        for (i in Tasks) {
+            if (Tasks[i].id == id) {
                 return tasks[i].isDone;
             }
         }
     }
     
     this.setStatus = function (id, isDone) {
-        for (i in tasks) {
-            if (tasks[i].id == id) {
-                tasks[i].isDone = isDone;
+        for (i in Tasks) {
+            if (Tasks[i].id == id) {
+                Tasks[i].isDone = isDone;
             }
         }
     }
@@ -130,6 +137,7 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, Proje
     
     $scope.projects = ProjectService.getProjectsList();
     $scope.tasks = TaskService.getTasksList();
+    
     
     $scope.SaveProject = function () {
         ProjectService.addProject($scope.newProject);
@@ -143,9 +151,16 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, Proje
         }
     }
     
-    $scope.SaveTask = function () {
+    $scope.SaveTask = function (id) {
         TaskService.addTask($scope.newTask);
-        $scope.newTask;
+        
+        for (i in this.projects){
+            if (this.projects[i].id == id) {
+                this.projects[i].tasks.push($scope.newTask);
+            }
+        }
+        
+        $scope.newTask = {};
     }
     
     $scope.DeleteTask = function (id) {
@@ -155,10 +170,21 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, Proje
         }
     }
     
-    $scope.AddTasksTotProject = function() {
-        for (i in this.projects){
-            
-        }
+    $scope.UpdateList = function (id) {
+        
+        
     }
     
+    function log(){
+        console.log("-------------------------------");
+        console.log("projects obj ");
+        console.log($scope.projects);
+        console.log("tasks obj ");
+        console.log($scope.tasks);
+        console.log("projects array of tasks ");
+        console.log($scope.projects.toString());
+        console.log("-------------------------------");
+    }
+    
+    log();
 });
