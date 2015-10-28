@@ -4,13 +4,17 @@ angular.module('TaskService', []).
         var Tasks = [{
                 id : 1,
                 'name' : 'null task',
-                'isDone' : 'false'
+                'isDone' : 'false',
+                'priority' : ''
             }]
 
         this.addTask = function (task) {
           if (task.id == null) {
               task.id = uid++;
               task.isDone = 'false';
+              if (task.priority == '') {
+                  task.priority = 'Low';
+              }
               Tasks.push(task);
           } else {
               for (i in Tasks) {
@@ -53,6 +57,22 @@ angular.module('TaskService', []).
             for (i in Tasks) {
                 if (Tasks[i].id == id) {
                     Tasks[i].isDone = isDone;
+                }
+            }
+        }
+        
+        this.getPriority = function (id){
+            for (i in Tasks) {
+                if (Tasks[i].id == id) {
+                    return Tasks[i].priority;
+                }
+            }
+        }
+        
+        this.setPriority = function (id, priority) {
+            for (i in Tasks) {
+                if (Tasks[i].id == id) {
+                    Tasks[i].priority = priority;
                 }
             }
         }

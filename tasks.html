@@ -1,16 +1,24 @@
 <div class="actionBtns">
     <input type="text" placeholder="Tasks Name" ng-model="newTask.name" ng-keyup="$event.keyCode == 13 ? SaveTask(id) : null"/>
     <input type="submit" value="Add" class="btn btn-default" ng-click="SaveTask(id)" />
+    <span> Select Priority: </span>
+    <select ng-model="newTask.priority" required>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+    </select>
 </div>
 
-<table class="table table-bordered ">
+<table class="table table-bordered">
     <thead>
         <th>Task</th>
+        <th>Priority</th>
         <th class="ID">Done ?</th>
     </thead>
     <tbody ng-repeat="p in projects track by $index" ng-if="p.id == id">
         <tr ng-repeat="t in p.tasks track by $index">
             <div ><td id="tName"> {{t.name}} </td></div>
+            <td id="priority">{{t.priority}}</td>
             <td> <center><input id="isDone" type="checkbox" ng-model="t.isDone" ng-true-value='true' ng-false-value='false'/></center></td>
         </tr>
     </tbody>
