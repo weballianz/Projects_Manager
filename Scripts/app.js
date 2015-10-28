@@ -1,4 +1,4 @@
-var app = angular.module('ProjectManager', ['ngRoute', 'ngCookies']);
+var app = angular.module('ProjectManager', ['ngRoute']);
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/:id', {
@@ -39,8 +39,8 @@ app.service('ProjectService', function () {
     
     this.deleteProject = function (id) {
         for (i in Projects) {
-            if (Projects[i].id == id) {
-                Projects.splice(i, 1);
+            if (i == id) {
+                Projects[i] = null;
             }
         }
     }
@@ -84,6 +84,7 @@ app.service('TaskService', function () {
     this.addTask = function (task) {
       if (task.id == null) {
           task.id = uid++;
+          task.isDone = 'false';
           Tasks.push(task);
       } else {
           for (i in Tasks) {
@@ -131,13 +132,10 @@ app.service('TaskService', function () {
     }
 });
 
-app.controller('ProjectManagerController', function ($scope, $routeParams, $cookies, $cookieStore, ProjectService, TaskService) {
-
+app.controller('ProjectManagerController', function ($scope, $routeParams, ProjectService, TaskService) {
     $scope.id = $routeParams.id;
-    
     $scope.projects = ProjectService.getProjectsList();
     $scope.tasks = TaskService.getTasksList();
-    
     
     $scope.SaveProject = function () {
         ProjectService.addProject($scope.newProject);
@@ -145,25 +143,21 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, $cook
     }
     
     $scope.DeleteProject = function (id) {
-        console.log($scope.projects);
-        
         ProjectService.deleteProject(id);
-        if ($scope.newProject.id == id) {
-            $scope.newProject = {};
-        }
         
-        console.log($scope.projects)
+        if ($scope.newProject.id == id) {
+           $scope.newProject = {};
+        }
     }
     
     $scope.SaveTask = function (id) {
         TaskService.addTask($scope.newTask);
         
         for (i in this.projects){
-            if (this.projects[i].id == id) {
+            if (this.projects[i] != null && this.projects[i].id == id) {
                 this.projects[i].tasks.push($scope.newTask);
             }
         }
-        
         $scope.newTask = {};
     }
     
@@ -174,6 +168,11 @@ app.controller('ProjectManagerController', function ($scope, $routeParams, $cook
         }
     }
     
-    $cookieStore.put('ProjectsList', this.projects);
+    $scope.log = function(){
+        console.clear();
+        console.log("------")
+        console.log($scope.projects)
+        console.log("------")
+    }
     
 });

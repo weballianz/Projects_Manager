@@ -18,3 +18,16 @@
 #pDelete {
     text-align: center;
 }
+
+#deleteP {
+    height: 10px;
+    background-color: darkred;
+}
+
+.container {
+    border: 2px dashed black;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+

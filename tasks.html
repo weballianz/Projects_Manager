@@ -3,15 +3,15 @@
     <input type="submit" value="Add" class="btn btn-default" ng-click="SaveTask(id)" />
 </div>
 
-<table class="table table-bordered">
+<table class="table table-bordered ">
     <thead>
         <th>Task</th>
         <th class="ID">Done ?</th>
     </thead>
     <tbody ng-repeat="p in projects track by $index" ng-if="p.id == id">
         <tr ng-repeat="t in p.tasks track by $index">
-            <td> {{t.name}} </td>
-            <td> <input type="checkbox" ng-bind="t.isDone"/> </td>
+            <div ><td id="tName"> {{t.name}} </td></div>
+            <td> <center><input id="isDone" type="checkbox" ng-model="t.isDone" ng-true-value='true' ng-false-value='false'/></center></td>
         </tr>
     </tbody>
 </table>

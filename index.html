@@ -3,9 +3,10 @@
     <head>
         <title>Projects Manager</title>
         <meta lang="en">
-        <link rel="stylesheet" type="text/css" href="Content/Style.css"/>
+        <link rel="stylesheet" type="text/css" href="Content/style.css"/>
         <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.min.css" />
+        <script src="Scripts/Extensions/jquery-2.1.4.min.js"></script>
         <script src="Scripts/Extensions/angular.min.js"></script>
         <script src="Scripts/Extensions/angular-route.min.js"></script>
         <script src="Scripts/Extensions/angular-cookies.min.js"></script>
@@ -15,10 +16,10 @@
     </head>
 
     <body ng-app="ProjectManager" ng-controller="ProjectManagerController">>
-        <div class="jumbotron">
-            <div class="container">
+        <div>
+            <div class="jumbotron container">
                 <div class="header">
-                    <a href="/" class="btn btn-primary">Home</a>
+                    <button class="btn btn-primary" ng-click="log()">Log</button>
                     <h1>Projects Manager</h1>
                 </div>
 
@@ -29,21 +30,19 @@
                         <hr>
 
                         <div class="actionBtns">
-                            <input type="text" placeholder="Projects name" ng-model="newProject.name" />
+                            <input type="text" placeholder="Projects name" ng-model="newProject.name" required/>
                             <input type="submit" value="Add" class="btn btn-default" ng-click="SaveProject()" />
                         </div>
                         
-                        <table class="table table-bordered">
+                        <table class="table table-bordered table-striped">
                             <thead>
-                                <th class="ID"> ID </th>
                                 <th> Name </th>
                                 <th class="deleteItem"> Delete  </th>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="p in projects track by $index" ng-if="$index != 0">
-                                    <td> {{ p.id }} </td>
+                                <tr ng-repeat="p in projects track by $index" ng-if="p != null && $index != 0">
                                     <td id="pName"> <a href="#{{$index}}">{{ p.name }}</a> </td>
-                                    <td> <a href="" id="pDelete" ng-click="DeleteProject(id)">X</a> </td>
+                                    <td> <center> <button id="deleteP" class="btn btn-danger" ng-click="DeleteProject($index)"></button> </center> </td>
                                 </tr>
                             </tbody>
                        </table>
