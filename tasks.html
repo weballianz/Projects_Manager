@@ -1,5 +1,5 @@
 <div class="actionBtns">
-    <input type="text" placeholder="Tasks Name" ng-model="newTask.name" />
+    <input type="text" placeholder="Tasks Name" ng-model="newTask.name" ng-keyup="$event.keyCode == 13 ? SaveTask(id) : null"/>
     <input type="submit" value="Add" class="btn btn-default" ng-click="SaveTask(id)" />
 </div>
 

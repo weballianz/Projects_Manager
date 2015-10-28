@@ -30,7 +30,7 @@
                         <hr>
 
                         <div class="actionBtns">
-                            <input type="text" placeholder="Projects name" ng-model="newProject.name" required/>
+                            <input type="text" placeholder="Projects name" ng-model="newProject.name" required ng-keyup="$event.keyCode == 13 ? SaveProject() : null"/>
                             <input type="submit" value="Add" class="btn btn-default" ng-click="SaveProject()" />
                         </div>
                         
