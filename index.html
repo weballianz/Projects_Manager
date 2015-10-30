@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="Content/bootstrap-theme.min.css" />
         <script src="Scripts/Extensions/jquery-2.1.4.min.js"></script>
+        <script src="Scripts/Extensions/bootstrap.min.js"></script>
         <script src="Scripts/Extensions/angular.min.js"></script>
         <script src="Scripts/Extensions/angular-route.min.js"></script>
         <script src="Scripts/Services/ProjectService.js"></script>
@@ -21,7 +22,7 @@
             <div class="jumbotron container">
                 <div class="header">
                     <button class="btn btn-primary" ng-click="log()">Log</button>
-                    <h1>Projects Manager</h1>
+                    <h2 id="title">Projects Manager</h2>
                 </div>
 
                 <div class="row">
@@ -42,7 +43,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="p in projects track by $index" ng-if="p != null && $index != 0">
-                                    <td id="pName"> <a href="#{{$index}}">{{ p.name }}</a> </td>
+                                    <td id="pName"> <a href="#{{$index}}" data-toggle="collapse">{{ p.name }}</a> </td>
                                     <td> <center> <button id="deleteP" class="btn btn-danger" ng-click="DeleteProject($index)"></button> </center> </td>
                                 </tr>
                             </tbody>
@@ -59,7 +60,5 @@
                 </div>
             </div>
          </div>
-         
-        
     </body>
 </html>
